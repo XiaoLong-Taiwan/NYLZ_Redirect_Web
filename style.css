@@ -1,0 +1,76 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Microsoft JhengHei', Arial, sans-serif;
+    background: url('https://source.unsplash.com/random/1920x1080/?nature') no-repeat center center fixed;
+    background-size: cover;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 600px;
+    text-align: center;
+}
+
+h1 {
+    color: #333;
+    margin-bottom: 2rem;
+}
+
+.loading-text {
+    color: #666;
+    margin-bottom: 1.5rem;
+}
+
+.results {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.result {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.site {
+    font-weight: bold;
+    color: #444;
+}
+
+.latency {
+    color: #666;
+}
+
+.redirect-message {
+    margin-top: 2rem;
+    color: #28a745;
+    font-weight: bold;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+.checking {
+    animation: pulse 1.5s infinite;
+}
+
+.fastest {
+    background: #e8f5e9;
+    border-left: 4px solid #28a745;
+}
