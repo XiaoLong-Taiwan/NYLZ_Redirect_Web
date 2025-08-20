@@ -2,32 +2,39 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Microsoft JhengHei', Arial, sans-serif;
-    background: url('https://source.unsplash.com/random/1920x1080/?nature') no-repeat center center fixed;
+    background: url('https://www.loliapi.com/acg') no-repeat center center fixed;
     background-size: cover;
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    backdrop-filter: blur(5px);
 }
 
 .container {
-    background: rgba(255, 255, 255, 0.9);
-    border-radius: 15px;
+    background: rgba(0, 0, 0, 0.65);
+    border-radius: 20px;
     padding: 2rem;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
     width: 90%;
     max-width: 600px;
     text-align: center;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 h1 {
-    color: #333;
+    color: #fff;
     margin-bottom: 2rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    font-size: 2.5rem;
 }
 
 .loading-text {
-    color: #666;
+    color: #fff;
     margin-bottom: 1.5rem;
+    font-size: 1.1rem;
 }
 
 .results {
@@ -37,33 +44,56 @@ h1 {
 }
 
 .result {
-    display: flex;
-    justify-content: space-between;
-    padding: 1rem;
-    background: rgba(255, 255, 255, 0.8);
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    padding: 1.2rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.result:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 .site {
     font-weight: bold;
-    color: #444;
+    color: #fff;
+    text-align: center;
+    font-size: 1.1rem;
 }
 
 .latency {
-    color: #666;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    min-width: 80px;
+    text-align: center;
 }
 
 .redirect-message {
     margin-top: 2rem;
-    color: #28a745;
+    color: #fff;
     font-weight: bold;
+    padding: 1rem;
+    background: rgba(40, 167, 69, 0.2);
+    border-radius: 15px;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
 }
 
 @keyframes pulse {
-    0% { opacity: 1; }
-    50% { opacity: 0.5; }
-    100% { opacity: 1; }
+    0% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.7; transform: scale(0.98); }
+    100% { opacity: 1; transform: scale(1); }
 }
 
 .checking {
@@ -71,6 +101,64 @@ h1 {
 }
 
 .fastest {
-    background: #e8f5e9;
-    border-left: 4px solid #28a745;
+    background: rgba(40, 167, 69, 0.3);
+    border: 1px solid rgba(40, 167, 69, 0.5);
+    position: relative;
+    overflow: hidden;
+}
+
+.fastest::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: #28a745;
+    box-shadow: 0 0 10px rgba(40, 167, 69, 0.5);
+}
+
+/* 響應式設計優化 */
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+        padding: 1.5rem;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    .result {
+        padding: 1rem;
+    }
+
+    .site {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.75rem;
+    }
+
+    .loading-text {
+        font-size: 1rem;
+    }
+
+    .result {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+        text-align: center;
+    }
+
+    .latency {
+        margin: 0 auto;
+    }
+}
+
+/* 添加平滑過渡效果 */
+* {
+    transition: all 0.3s ease-in-out;
 }
