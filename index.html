@@ -3,44 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NYLZ諾亞龍舟 - 節點檢測</title>
+    <title>NYLZ諾亞龍舟 - 節點檢測系統</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container">
-        <div class="content">
-            <div class="logo">NYLZ_諾亞龍舟</div>
-            <h1>節點延遲檢測</h1>
-            <div class="loading-text">正在檢測各節點延遲...</div>
+        <header class="header">
+            <div class="brand">
+                <div class="logo">NYLZ</div>
+                <div class="logo-text">諾亞龍舟</div>
+            </div>
+        </header>
+        
+        <main class="content">
+            <h1 class="main-title">節點檢測系統</h1>
+            <p class="subtitle">自動檢測並跳轉至最佳節點</p>
+            
+            <div class="status-panel">
+                <div class="loading-text">正在檢測各節點延遲...</div>
+            </div>
+
             <div class="results">
-                <div class="result" id="result1" style="animation-delay: 0s">
-                    <span class="site">dash1.nylz.xyz</span>
-                    <span class="latency">檢測中...</span>
+                <div class="result-card" id="result1">
+                    <div class="result-content">
+                        <div class="site-info">
+                            <span class="site-name">香港節點</span>
+                            <span class="site-url">dash1.nylz.xyz</span>
+                        </div>
+                        <div class="latency-badge">檢測中...</div>
+                    </div>
                 </div>
-                <div class="result" id="result2" style="animation-delay: 0.1s">
-                    <span class="site">dash2.nylz.xyz</span>
-                    <span class="latency">檢測中...</span>
+
+                <div class="result-card" id="result2">
+                    <div class="result-content">
+                        <div class="site-info">
+                            <span class="site-name">東京節點</span>
+                            <span class="site-url">dash2.nylz.xyz</span>
+                        </div>
+                        <div class="latency-badge">檢測中...</div>
+                    </div>
                 </div>
-                <div class="result" id="result3" style="animation-delay: 0.2s">
-                    <span class="site">dash3.nylz.xyz</span>
-                    <span class="latency">檢測中...</span>
+
+                <div class="result-card" id="result3">
+                    <div class="result-content">
+                        <div class="site-info">
+                            <span class="site-name">新加坡節點</span>
+                            <span class="site-url">dash3.nylz.xyz</span>
+                        </div>
+                        <div class="latency-badge">檢測中...</div>
+                    </div>
                 </div>
-                <div class="result" id="result4" style="animation-delay: 0.3s">
-                    <span class="site">dash4.nylz.xyz</span>
-                    <span class="latency">檢測中...</span>
+
+                <div class="result-card" id="result4">
+                    <div class="result-content">
+                        <div class="site-info">
+                            <span class="site-name">首爾節點</span>
+                            <span class="site-url">dash4.nylz.xyz</span>
+                        </div>
+                        <div class="latency-badge">檢測中...</div>
+                    </div>
                 </div>
-                <div class="result" id="result5" style="animation-delay: 0.4s">
-                    <span class="site">dash5.nylz.xyz</span>
-                    <span class="latency">檢測中...</span>
+
+                <div class="result-card" id="result5">
+                    <div class="result-content">
+                        <div class="site-info">
+                            <span class="site-name">台灣節點</span>
+                            <span class="site-url">dash5.nylz.xyz</span>
+                        </div>
+                        <div class="latency-badge">檢測中...</div>
+                    </div>
                 </div>
             </div>
-            <div class="redirect-message" id="redirect-message"></div>
-        </div>
-        <div class="footer">
-            <p>&copy; 2025 NYLZ諾亞龍舟 版權所有</p>
-        </div>
+
+            <div class="redirect-panel">
+                <div class="redirect-message" id="redirect-message"></div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <div class="footer-content">
+                <p class="copyright">&copy; 2025 NYLZ諾亞龍舟</p>
+                <p class="footer-text">專業節點檢測系統</p>
+            </div>
+        </footer>
     </div>
+    <script src="script.js"></script>
+</body>
+</html>
     <script src="script.js"></script>
 </body>
 </html>

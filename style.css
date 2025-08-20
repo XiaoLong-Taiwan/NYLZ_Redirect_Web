@@ -1,8 +1,13 @@
 :root {
     --primary-color: #4a90e2;
     --text-color: #ffffff;
-    --background-color: rgba(0, 0, 0, 0.65);
+    --background-color: rgba(0, 0, 0, 0.75);
     --accent-color: #00ff9d;
+    --card-bg: rgba(255, 255, 255, 0.05);
+    --card-hover-bg: rgba(255, 255, 255, 0.1);
+    --gradient-start: rgba(0, 255, 157, 0.1);
+    --gradient-end: rgba(74, 144, 226, 0.1);
+    --border-color: rgba(255, 255, 255, 0.1);
 }
 
 * {
@@ -14,20 +19,18 @@
 body {
     margin: 0;
     padding: 0;
-    font-family: 'Noto Sans TC', 'Microsoft JhengHei', Arial, sans-serif;
+    font-family: 'Noto Sans TC', sans-serif;
     background: url('https://www.loliapi.com/acg') no-repeat center center fixed;
     background-size: cover;
-    height: 100vh;
+    min-height: 100vh;
+    color: var(--text-color);
     display: flex;
     justify-content: center;
     align-items: center;
-    backdrop-filter: blur(5px);
-    overflow: hidden;
     position: fixed;
     width: 100%;
     top: 0;
     left: 0;
-    color: var(--text-color);
 }
 
 .container {
