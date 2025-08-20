@@ -37,8 +37,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (latency === Infinity) {
             latencySpan.textContent = '無法連接';
+            latencySpan.style.color = '#ff4444';
         } else {
-            latencySpan.textContent = `${Math.round(latency)}ms`;
+            const roundedLatency = Math.round(latency);
+            latencySpan.textContent = `${roundedLatency}ms`;
+            // 根據延遲值設置顏色
+            if (roundedLatency < 100) {
+                latencySpan.style.color = '#00ff00';
+            } else if (roundedLatency < 200) {
+                latencySpan.style.color = '#ffff00';
+            } else {
+                latencySpan.style.color = '#ff6b6b';
+            }
         }
 
         checksCompleted++;
@@ -66,10 +76,10 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('redirect-message').textContent = 
             `找到延遲最低的網站！（${Math.round(fastest.latency)}ms）即將跳轉...`;
 
-        // 顯示跳轉訊息3秒後進行跳轉
+        // 顯示跳轉訊息1秒後進行跳轉
         setTimeout(() => {
             window.location.href = fastest.url;
-        }, 3000);
+        }, 1000);
     }
 
     // 開始檢測所有網站
