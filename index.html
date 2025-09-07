@@ -7,12 +7,16 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="wrapper">
-    <div class="container">
-      <h1>NYLZ 诺亚龙舟</h1>
-      <p class="loading">正在检测主要与备用节点...</p>
+  <!-- 背景圖片 -->
+  <div class="background"></div>
 
-     <div class="results">
+  <div class="wrapper">
+    <div class="container glass">
+      <h1>NYLZ 诺亚龙舟</h1>
+      <p class="loading">正在檢測主要與備用節點...</p>
+
+      <!-- 節點檢測結果 -->
+      <div class="results">
         <div class="result main" id="result-main1">
           <span class="label">主要站點1</span>
           <span class="site">dash.nylz.xyz</span>
@@ -40,10 +44,16 @@
         </div>
       </div>
 
-
+      <!-- 跳轉提示 -->
       <div class="redirect-message" id="redirect-message"></div>
     </div>
   </div>
+
+  <!-- 底部授權字樣 -->
+  <footer class="footer">
+    LONGSHANG 龍殤
+  </footer>
+
   <script src="script.js"></script>
 </body>
 </html>
