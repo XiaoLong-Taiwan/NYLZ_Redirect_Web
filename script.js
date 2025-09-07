@@ -1,79 +1,88 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const sites = [
-        'https://google.com',
-        'https://facebook.com',
-        'https://youtube.com',
-        'https://dash4.nylz.xyz',
-        'https://dash5.nylz.xyz'
-    ];
+document.addEventListener("DOMContentLoaded", function () {
+  const prioritySites = [
+    "https://dash.nylz.xyz",                // 第一優先
+    "https://dash.nylz-services.ggff.net"   // 第二優先
+  ];
 
-    const results = [];
-    let checksCompleted = 0;
+  const backupSites = [
+    "https://dash-server1.nylz.xyz",
+    "https://dash-server2.nylz.xyz",
+    "https://dash-server3.nylz.xyz"
+  ];
 
-    function checkLatency(url, index) {
-        const startTime = performance.now();
-        
-        fetch(url, {
-            mode: 'no-cors'  // 由於跨域限制，使用no-cors模式
-        })
-        .then(() => {
-            const endTime = performance.now();
-            const latency = endTime - startTime;
-            updateResult(index, latency);
-        })
-        .catch(() => {
-            updateResult(index, Infinity);
+  const results = [];
+  const PING_TIMES = 3;
+
+  async function pingSite(url) {
+    let total = 0;
+    let successCount = 0;
+    for (let i = 0; i < PING_TIMES; i++) {
+      const start = performance.now();
+      try {
+        await fetch(url + "/?cacheBust=" + Date.now(), {
+          method: "HEAD",
+          mode: "no-cors",
         });
+        const end = performance.now();
+        total += end - start;
+        successCount++;
+      } catch (e) {}
+    }
+    return successCount === 0 ? Infinity : total / successCount;
+  }
+
+  function updateResult(elementId, latency, url) {
+    const resultElement = document.getElementById(elementId);
+    const latencySpan = resultElement.querySelector(".latency");
+    latencySpan.textContent = latency === Infinity ? "無法連接" : `${Math.round(latency)} ms`;
+    results.push({ url, latency });
+  }
+
+  async function checkPrioritySites() {
+    for (let i = 0; i < prioritySites.length; i++) {
+      const site = prioritySites[i];
+      const latency = await pingSite(site);
+      updateResult(`result-main${i + 1}`, latency, site);
+      if (latency !== Infinity) {
+        document.getElementById(`result-main${i + 1}`).classList.add("fastest");
+        redirect(site, latency);
+        return;
+      }
+    }
+    // 如果前兩個優先站都失敗，檢查備用節點
+    checkBackupSites();
+  }
+
+  async function checkBackupSites() {
+    const backupResults = [];
+    for (let i = 0; i < backupSites.length; i++) {
+      const site = backupSites[i];
+      const latency = await pingSite(site);
+      updateResult(`result${i + 1}`, latency, site);
+      backupResults.push({ url: site, latency, index: i + 1 });
     }
 
-    function updateResult(index, latency) {
-        const resultElement = document.getElementById(`result${index + 1}`);
-        const latencySpan = resultElement.querySelector('.latency');
-        
-        results[index] = {
-            url: sites[index],
-            latency: latency
-        };
-
-        if (latency === Infinity) {
-            latencySpan.textContent = '無法連接';
-        } else {
-            latencySpan.textContent = `${Math.round(latency)}ms`;
-        }
-
-        checksCompleted++;
-        
-        if (checksCompleted === sites.length) {
-            redirectToFastest();
-        }
+    const validBackups = backupResults.filter(r => r.latency !== Infinity);
+    if (validBackups.length === 0) {
+      document.getElementById("redirect-message").textContent = "無法連接到任何節點";
+      return;
     }
 
-    function redirectToFastest() {
-        const validResults = results.filter(result => result.latency !== Infinity);
-        
-        if (validResults.length === 0) {
-            document.getElementById('redirect-message').textContent = '無法連接到任何網站';
-            return;
-        }
+    const fastest = validBackups.reduce((a, b) => a.latency < b.latency ? a : b);
+    document.getElementById(`result${fastest.index}`).classList.add("fastest");
+    redirect(fastest.url, fastest.latency);
+  }
 
-        const fastest = validResults.reduce((prev, current) => 
-            prev.latency < current.latency ? prev : current
-        );
+  function redirect(url, latency) {
+    const fullUrl = url + window.location.search + window.location.hash;
+    document.getElementById("redirect-message").textContent =
+      `找到可用節點 (${Math.round(latency)} ms)，即將跳轉...`;
 
-        const fastestElement = document.getElementById(`result${results.indexOf(fastest) + 1}`);
-        fastestElement.classList.add('fastest');
+    setTimeout(() => {
+      window.location.href = fullUrl;
+    }, 3000);
+  }
 
-        document.getElementById('redirect-message').textContent = 
-            `找到延遲最低的網站！（${Math.round(fastest.latency)}ms）即將跳轉...`;
-
-        // 顯示跳轉訊息3秒後進行跳轉
-        setTimeout(() => {
-            window.location.href = fastest.url;
-        }, 3000);
-    }
-
-    // 開始檢測所有網站
-    sites.forEach((site, index) => {
-        checkLatency(site, index);
-    });
+  // 初始化檢測
+  checkPrioritySites();
 });
