@@ -1,13 +1,13 @@
 document.addEventListener("DOMContentLoaded", () => {
   const prioritySites = [
-    "https://dash.nylz.xyz",
-    "https://dash.nylz-services.ggff.net"
+    "https://dash-main.nylz.xyz",
+    "https://dash-alt.nylz.xyz"
   ];
 
   const backupSites = [
-    "https://dash-server1.nylz.xyz",
-    "https://dash-server2.nylz.xyz",
-    "https://dash-server3.nylz.xyz"
+    "https://dash-backup01.nylz.xyz",
+    "https://dash-backup02.nylz.xyz",
+    "https://dash-backup03.nylz.xyz"
   ];
 
   const PING_TIMES = 2;
@@ -36,7 +36,20 @@ document.addEventListener("DOMContentLoaded", () => {
   function updateResult(id, latency) {
     const el = document.getElementById(id);
     const latencyEl = el.querySelector(".latency");
-    latencyEl.textContent = latency === Infinity ? "無法連接" : `${Math.round(latency)} ms`;
+    if (latency === Infinity) {
+      latencyEl.textContent = "無法連接";
+      latencyEl.classList.add("error");
+    } else {
+      latencyEl.textContent = `${Math.round(latency)} ms`;
+      latencyEl.classList.remove("error");
+      if (latency < 100) {
+        latencyEl.classList.add("excellent");
+      } else if (latency < 200) {
+        latencyEl.classList.add("good");
+      } else {
+        latencyEl.classList.add("normal");
+      }
+    }
   }
 
   function markAsFastest(id) {

@@ -1,11 +1,16 @@
 /* 主題色與變數 */
 :root {
   --primary: #4daaf7;
+  --primary-hover: #2d8ed9;
   --bg-dark: #0d1117;
   --bg-light: #f0f8ff;
   --text-dark: #f9f9f9;
   --text-light: #111;
   --success: #28a745;
+  --error: #dc3545;
+  --warning: #ffc107;
+  --card-bg-light: rgba(255, 255, 255, 0.2);
+  --card-bg-dark: rgba(0, 0, 0, 0.4);
 }
 
 /* 背景圖 */
@@ -48,15 +53,16 @@ body {
 
 /* 霧面玻璃卡片 */
 .glass {
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(12px);
-  border-radius: 20px;
-  padding: 1.5rem;
-  max-width: 600px;
+  background: var(--card-bg-light);
+  backdrop-filter: blur(16px);
+  border-radius: 24px;
+  padding: 2rem;
+  max-width: 700px;
   margin: auto;
   text-align: center;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
-  transition: background 0.3s;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 /* 深色玻璃 */
@@ -88,18 +94,22 @@ h1 {
 
 .result {
   display: grid;
-  grid-template-columns: 100px 1fr 100px;
+  grid-template-columns: 120px 1fr 120px;
   align-items: center;
-  padding: 0.9rem 1.2rem;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.08);
-  font-size: 0.9rem;
-  transition: transform 0.2s, background 0.3s;
+  padding: 1rem 1.5rem;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.1);
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin: 0.5rem 0;
 }
 
 .result:hover {
-  transform: translateY(-3px);
-  background: rgba(77, 170, 247, 0.15);
+  transform: translateY(-3px) scale(1.02);
+  background: rgba(77, 170, 247, 0.2);
+  border-color: var(--primary);
+  box-shadow: 0 8px 25px rgba(77, 170, 247, 0.2);
 }
 
 .result .label {
@@ -115,8 +125,31 @@ h1 {
 
 .result .latency {
   text-align: right;
-  font-size: 0.85rem;
-  opacity: 0.7;
+  font-size: 0.9rem;
+  font-weight: bold;
+  padding: 0.3rem 0.8rem;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.latency.excellent {
+  color: #2ecc71;
+  background: rgba(46, 204, 113, 0.15);
+}
+
+.latency.good {
+  color: #3498db;
+  background: rgba(52, 152, 219, 0.15);
+}
+
+.latency.normal {
+  color: #f1c40f;
+  background: rgba(241, 196, 15, 0.15);
+}
+
+.latency.error {
+  color: #e74c3c;
+  background: rgba(231, 76, 60, 0.15);
 }
 
 .main {
@@ -129,10 +162,30 @@ h1 {
 }
 
 .redirect-message {
-  margin-top: 1.5rem;
+  margin-top: 2rem;
   font-weight: bold;
-  font-size: 1rem;
+  font-size: 1.1rem;
   color: var(--success);
+  padding: 1rem;
+  border-radius: 16px;
+  background: rgba(40, 167, 69, 0.15);
+  border: 1px solid rgba(40, 167, 69, 0.3);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.02);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 /* 底部授權字樣 */
