@@ -10,9 +10,9 @@ document.addEventListener("DOMContentLoaded", () => {
     "https://dash-backup03.nylz.xyz"
   ];
 
-  const PING_TIMES = 2;
-  const REDIRECT_DELAY = 1000; // 1 秒緩衝時間
-  const RETRY_DELAY = 3000;   // 3 秒後重新檢測
+  const PING_TIMES = 3;        // 增加檢測次數以提高準確性
+  const REDIRECT_DELAY = 3500; // 5 秒緩衝時間
+  const RETRY_DELAY = 3500;    // 5 秒後重新檢測
 
   /** 測試節點延遲 */
   async function pingSite(url) {
