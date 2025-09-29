@@ -1,11 +1,11 @@
 /* 主題色與變數 */
 :root {
-  --primary: #ffa07a;          /* 淺橘色 */
-  --primary-hover: #ff8c5a;    /* 深一點的橘色 */
-  --secondary: #87ceeb;        /* 淺藍色 */
-  --secondary-hover: #67aecb;  /* 深一點的藍色 */
-  --bg-dark: rgba(18, 18, 18, 0.65);    /* 深色背景 */
-  --bg-darker: rgba(10, 10, 10, 0.65);  /* 更深的背景 */
+  --primary: #60a5fa;          /* 淺藍色 */
+  --primary-hover: #3b82f6;    /* 深一點的藍色 */
+  --secondary: #1d4ed8;        /* 深藍色 */
+  --secondary-hover: #1e40af;  /* 更深的藍色 */
+  --bg-dark: rgba(0, 0, 0, 0.65);     /* 深色背景 */
+  --bg-darker: rgba(0, 0, 0, 0.75);   /* 更深的背景 */
   --text-primary: #ffffff;     /* 主要文字顏色 */
   --text-secondary: #e0e0e0;   /* 次要文字顏色 */
   --success: #4caf50;
@@ -53,9 +53,9 @@ body {
 .wrapper {
   flex: 1;
   width: 100%;
-  max-width: 1200px;
+  max-width: 1000px;
   margin: 0 auto;
-  padding: clamp(1rem, 4vh, 2rem) clamp(0.5rem, 3vw, 2rem);
+  padding: clamp(0.8rem, 3vh, 1.5rem) clamp(0.5rem, 2vw, 1.5rem);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -69,9 +69,9 @@ body {
   background: var(--container-bg);
   backdrop-filter: blur(20px);
   border-radius: calc(var(--radius) * 1.5);
-  padding: 2rem;
+  padding: 1.5rem;
   width: 100%;
-  max-width: 800px;
+  max-width: 700px;
   margin: auto;
   text-align: center;
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
@@ -159,16 +159,16 @@ h1::after {
 
 .result {
   display: grid;
-  grid-template-columns: minmax(90px, auto) 1fr minmax(80px, auto);
-  gap: 1rem;
+  grid-template-columns: minmax(80px, auto) 1fr minmax(70px, auto);
+  gap: 0.75rem;
   align-items: center;
-  padding: 1.2rem 1.5rem;
+  padding: 0.8rem 1.2rem;
   border-radius: var(--radius);
   background: var(--card-bg);
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   transition: all 0.3s ease;
   border: 1px solid var(--border-color);
-  margin: 0.8rem 0;
+  margin: 0.5rem 0;
   position: relative;
   overflow: hidden;
 }
@@ -265,10 +265,10 @@ h1::after {
 }
 
 .redirect-message {
-  margin-top: auto;
-  padding: 1.5rem;
+  margin-top: 1rem;
+  padding: 1rem;
   font-weight: bold;
-  font-size: 1.1rem;
+  font-size: 0.95rem;
   color: var(--success);
   border-radius: var(--radius);
   background: rgba(40, 167, 69, 0.15);

@@ -63,43 +63,51 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => { window.location.href = fullUrl; }, REDIRECT_DELAY);
   }
 
-  /** 檢查主要節點 */
-  async function checkPrioritySites() {
+  /** 檢查所有節點 */
+  async function checkAllSites() {
+    const results = [];
+    
+    // 檢查主要節點
     for (let i = 0; i < prioritySites.length; i++) {
       const site = prioritySites[i];
       const latency = await pingSite(site);
       updateResult(`result-main${i + 1}`, latency);
       if (latency !== Infinity) {
-        markAsFastest(`result-main${i + 1}`);
-        redirect(site, latency);
-        return;
+        results.push({ site, latency, index: `main${i + 1}`, isPriority: true });
       }
     }
-    checkBackupSites();
-  }
 
-  /** 檢查備用節點 */
-  async function checkBackupSites() {
-    const results = [];
+    // 檢查備用節點
     for (let i = 0; i < backupSites.length; i++) {
       const site = backupSites[i];
       const latency = await pingSite(site);
       updateResult(`result${i + 1}`, latency);
-      results.push({ site, latency, index: i + 1 });
+      if (latency !== Infinity) {
+        results.push({ site, latency, index: `${i + 1}`, isPriority: false });
+      }
     }
 
-    const valid = results.filter(r => r.latency !== Infinity);
-    if (valid.length === 0) {
+    if (results.length === 0) {
       document.getElementById("redirect-message").textContent =
         "無法連接到任何節點，3 秒後自動重試...";
       setTimeout(() => {
         resetUI();
-        checkPrioritySites();
+        checkAllSites();
       }, RETRY_DELAY);
       return;
     }
 
-    const fastest = valid.reduce((a, b) => a.latency < b.latency ? a : b);
+    // 優先選擇可用的主要節點中最快的
+    const priorityResults = results.filter(r => r.isPriority);
+    if (priorityResults.length > 0) {
+      const fastest = priorityResults.reduce((a, b) => a.latency < b.latency ? a : b);
+      markAsFastest(`result-${fastest.index}`);
+      redirect(fastest.site, fastest.latency);
+      return;
+    }
+
+    // 如果沒有可用的主要節點，選擇備用節點中最快的
+    const fastest = results.reduce((a, b) => a.latency < b.latency ? a : b);
     markAsFastest(`result${fastest.index}`);
     redirect(fastest.site, fastest.latency);
   }
@@ -111,5 +119,5 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("redirect-message").textContent = "";
   }
 
-  checkPrioritySites();
+  checkAllSites();
 });
